@@ -2,11 +2,20 @@
 #include <CAN.h>
 #include <settings.h>
 
+#define DEBUG false
+
 void ReadCANWriteMotors(int packetSize);
 byte readDipSwitch();
 
 void setup() {
-    Serial.begin(SERIAL_BAUD_RATE);
+
+    #if DEBUG
+        Serial.begin(SERIAL_BAUD_RATE);
+
+        while (!Serial) {
+            delay(100);
+        }
+    #endif
 
     pinMode(ADDRESS_DIP_1_PIN, INPUT);
     pinMode(ADDRESS_DIP_2_PIN, INPUT);
@@ -16,21 +25,23 @@ void setup() {
     pinMode(PWM_PIN, OUTPUT);
     pinMode(DIR_PIN, OUTPUT);
 
-    while (!Serial) {
-        delay(100);
-    }
-
     // set initial address
     byte address = readDipSwitch();
 
     CAN.setPins(CRX_PIN, CTX_PIN);
 
     while (!CAN.begin(CAN_BAUD_RATE)) {
-        Serial.println("Starting CAN failed!");
+
+        #if DEBUG
+            Serial.println("Starting CAN failed!");
+        #endif
+
         delay(100);
     }
 
-    Serial.println("CAN Initialized successfully.");
+    #if DEBUG
+        Serial.println("CAN Initialized successfully.");
+    #endif
 
     CAN.onReceive(ReadCANWriteMotors);
 }
@@ -41,14 +52,19 @@ void ReadCANWriteMotors(int packetSize) {
     static int motorSpeed = 0;
 
     if (CAN.packetId() == readDipSwitch()) {
-        Serial.println("Received packet for this node.");
+
+        #if DEBUG
+            Serial.println("Received packet for this node.");
+        #endif
 
         while (CAN.available()) {
             motorSpeed = CAN.read();
         }
 
-        Serial.print("Motor speed: ");
-        Serial.println(motorSpeed);
+        #if DEBUG
+            Serial.print("Motor speed: ");
+            Serial.println(motorSpeed);
+        #endif
 
         analogWrite(PWM_PIN, motorSpeed);
     }
@@ -65,8 +81,10 @@ byte readDipSwitch() {
     address <<= 1;
     address += digitalRead(ADDRESS_DIP_4_PIN);
 
-    Serial.print("Address: ");
-    Serial.println(address, HEX);
+    #if DEBUG
+        Serial.print("Address: ");
+        Serial.println(address, HEX);
+    #endif
 
     return address;
 }
