@@ -50,6 +50,7 @@ void loop() {
     while (Serial.available()) {
         SerialData = read20BytesFromSerial();
         runMotor(SerialData);
+        sendDataToOtherNodes(SerialData);
     }
 }
 
