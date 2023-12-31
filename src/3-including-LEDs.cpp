@@ -82,8 +82,8 @@ void sendDataToOtherNodes(char* SerialData) {
     bool LEDState = false;
 
     for (
-        int nodeAddress = 0x02;
-        nodeAddress < (TOTAL_NODE_COUNT - 1); 
+        int nodeAddress = FIRST_NODE_ADDRESS + 1;
+        nodeAddress < TOTAL_NODE_COUNT; 
         nodeAddress++
     ) {
         CAN.beginPacket(nodeAddress);
@@ -94,6 +94,8 @@ void sendDataToOtherNodes(char* SerialData) {
             byteIndex++
         ) {
             CAN.write(SerialData[nodeAddress * BYTES_PER_NODE + byteIndex]);
+            digitalWrite(MAIN_STATUS_LED_PIN, LEDState);
+            LEDState = !LEDState;
         }
 
         CAN.endPacket();
