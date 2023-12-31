@@ -6,6 +6,9 @@
 
 #define SERIAL_BAUD_RATE 115200  // bps
 #define CAN_BAUD_RATE 500E3      // Kbps
+#define SERIAL_DATA_LENGTH 20    // bytes
+#define TOTAL_NODE_COUNT 7
+#define BYTES_PER_NODE 2
 
 const uint8_t CTX_PIN = 15;
 const uint8_t CRX_PIN = 2;
@@ -18,5 +21,10 @@ const uint8_t ADDRESS_DIP_4_PIN = 5;
 const uint8_t PWM_PIN = 26;
 const uint8_t DIR_PIN = 25;
 
+const uint8_t MAIN_STATUS_LED_PIN = 32;
+const uint8_t CAN_SYNC_LED_PIN = 13;
+const uint8_t CAN_RX_LED_PIN = 12;
+const uint8_t CAN_TX_LED_PIN = 14;
+const uint8_t IMU_CALIBRATION_LED_PIN = 27;
 
 #endif // SETTINGS_H
