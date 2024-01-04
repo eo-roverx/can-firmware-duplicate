@@ -4,7 +4,7 @@
 
 #define DEBUG false
 
-char* read20BytesFromSerial();
+char* readBytesFromSerial();
 void runMotor(char* SerialData);
 void sendDataToOtherNodes(char* SerialData);
 byte readDipSwitch();
@@ -48,13 +48,13 @@ void loop() {
     // https://stackoverflow.com/a/7959658/10907280
     
     while (Serial.available()) {
-        SerialData = read20BytesFromSerial();
+        SerialData = readBytesFromSerial();
         runMotor(SerialData);
         sendDataToOtherNodes(SerialData);
     }
 }
 
-char* read20BytesFromSerial() {
+char* readBytesFromSerial() {
     int SerialStringIndex = 0;
     char SerialString[SERIAL_DATA_LENGTH + 1];
     char receiveBuffer = Serial.read();
