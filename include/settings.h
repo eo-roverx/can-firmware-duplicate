@@ -9,7 +9,7 @@
 #define SERIAL_DATA_LENGTH 20    // bytes
 #define TOTAL_NODE_COUNT 7
 #define BYTES_PER_NODE 2
-#define FIRST_NODE_ADDRESS 0x01
+#define FIRST_NODE_ADDRESS 0x01  // only arm, not including protocol converter
 
 const uint8_t CTX_PIN = 15;
 const uint8_t CRX_PIN = 2;
