@@ -28,7 +28,7 @@ void loop() {
     // https://stackoverflow.com/a/7959658/10907280
     
     while (Serial.available()) {
-        Serial.readBytes(SerialData, SERIAL_DATA_LENGTH);
+        Serial.readBytesUntil('\n', SerialData, SERIAL_DATA_LENGTH);
         sendDataToOtherNodes(SerialData);
     }
 }
