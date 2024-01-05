@@ -10,6 +10,7 @@
 #define TOTAL_NODE_COUNT 7
 #define BYTES_PER_NODE 2
 #define FIRST_NODE_ADDRESS 0x01  // only arm, not including protocol converter
+#define ENCODER_PPR 1992
 
 const uint8_t CTX_PIN = 15;
 const uint8_t CRX_PIN = 2;
@@ -21,6 +22,9 @@ const uint8_t ADDRESS_DIP_4_PIN = 5;
 
 const uint8_t PWM_PIN = 26;
 const uint8_t DIR_PIN = 25;
+
+const uint8_t ENCODER_A_PIN = 34;
+const uint8_t ENCODER_B_PIN = 33;
 
 const uint8_t MAIN_STATUS_LED_PIN = 32;
 const uint8_t CAN_SYNC_LED_PIN = 13;
