@@ -14,9 +14,9 @@ void setup() {
     CAN.setPins(CRX_PIN, CTX_PIN);
 
     while (!CAN.begin(CAN_BAUD_RATE)) {
-    #if DEBUG
-            Serial.println("Starting CAN failed!");
-    #endif
+#if DEBUG
+        Serial.println("Starting CAN failed!");
+#endif
 
         delay(100);
     }
@@ -35,9 +35,9 @@ void loop() {
 
         // if serial data is not the correct length, do not do anything with it
         if (SerialBytesRead != SERIAL_DATA_LENGTH) {
-            #if DEBUG
-                Serial.println("Serial data is not the correct length");
-            #endif
+#if DEBUG
+            Serial.println("Serial data is not the correct length");
+#endif
 
             continue;
         }
@@ -51,7 +51,7 @@ void loop() {
             }
             Serial.println();
 
-        // if serial data is not the check string, parse and send to other nodes
+            // if serial data is not the check string, parse and send to other nodes
         } else {
             sendDataToArmNodes(SerialData);
         }
@@ -78,10 +78,10 @@ void sendDataToArmNodes(char* SerialData) {
 
         digitalWrite(CAN_TX_LED_PIN, LOW);
 
-    #if DEBUG
-            Serial.print("Sent to node: ");
-            Serial.println(MOTOR_DATA_ADDRESS + FIRST_NODE_ADDRESS + node, HEX);
-    #endif
+#if DEBUG
+        Serial.print("Sent to node: ");
+        Serial.println(MOTOR_DATA_ADDRESS + FIRST_NODE_ADDRESS + node, HEX);
+#endif
     }
 
 #if DEBUG

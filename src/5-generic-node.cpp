@@ -64,7 +64,7 @@ void handleCANPacket(int packetSize) {
 
 void respondToRTR() {
     byte nodeAddress = readDipSwitch();
-    
+
     if (CAN.packetId() == (RTR_REQUEST_ADDRESS + FIRST_NODE_ADDRESS + nodeAddress)) {
         digitalWrite(CAN_TX_LED_PIN, HIGH);
         CAN.beginPacket(RTR_RESPONSE_ADDRESS + FIRST_NODE_ADDRESS + nodeAddress);
