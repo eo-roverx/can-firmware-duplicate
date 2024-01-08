@@ -1,15 +1,26 @@
 #if !defined(SETTINGS_H)
 #define SETTINGS_H
 
-
 #include <Arduino.h>
 
 #define SERIAL_BAUD_RATE 115200  // bps
 #define CAN_BAUD_RATE 500E3      // Kbps
-#define SERIAL_DATA_LENGTH 20    // bytes
-#define TOTAL_NODE_COUNT 7
+#define RTR_TIMEOUT 50           // ms
+#define SERIAL_DATA_LENGTH 15    // bytes
+#define RTR_CHECK_STRING "GET CAN STATUS"
+
+#define ARM_NODES_COUNT 7        // only arm, not including protocol converter
 #define BYTES_PER_NODE 2
+
+// CAN addresses are formed by the following formula:
+// PACKET_TYPE + FIRST_NODE_ADDRESS + SPECIFIC_NODE_NUMBER
+// Bus arbitration is done by the CAN protocol, to decide priority
+// LOWER ADDRESS = HIGHER PRIORITY
 #define FIRST_NODE_ADDRESS 0x01  // only arm, not including protocol converter
+#define TRANSLATOR_NODE_ADDRESS 0x00
+#define RTR_REQUEST_ADDRESS 0x00
+#define RTR_RESPONSE_ADDRESS 0x10
+#define MOTOR_DATA_ADDRESS 0x20
 
 const uint8_t CTX_PIN = 15;
 const uint8_t CRX_PIN = 2;
@@ -28,4 +39,4 @@ const uint8_t CAN_RX_LED_PIN = 12;
 const uint8_t CAN_TX_LED_PIN = 14;
 const uint8_t IMU_CALIBRATION_LED_PIN = 27;
 
-#endif // SETTINGS_H
+#endif  // SETTINGS_H
