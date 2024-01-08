@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <CAN.h>
+#include <CAN.h>  //  https://github.com/sandeepmistry/arduino-CAN.git
 #include <settings.h>
 
 #define DEBUG false
