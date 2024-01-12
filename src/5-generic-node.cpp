@@ -2,7 +2,7 @@
 #include <CAN.h>
 #include <settings.h>
 
-#define DEBUG false
+#define DEBUG true
 
 void ReadCANWriteMotors(int packetSize);
 byte readDipSwitch();
@@ -15,6 +15,8 @@ void setup() {
         while (!Serial) {
             delay(100);
         }
+
+        Serial.println("Arm node 1");
     #endif
 
     pinMode(ADDRESS_DIP_1_PIN, INPUT);
@@ -49,10 +51,16 @@ void setup() {
         Serial.println("CAN Initialized successfully.");
     #endif
 
-    CAN.onReceive(ReadCANWriteMotors);
+    #if DEBUG
+        Serial.println(readDipSwitch());
+    #endif
 }
 
-void loop() {}
+void loop() {
+    int packetSize = CAN.parsePacket();
+    
+    ReadCANWriteMotors(packetSize);
+}
 
 void ReadCANWriteMotors(int packetSize) {
     /**
@@ -67,7 +75,7 @@ void ReadCANWriteMotors(int packetSize) {
     static bool CAN_RX_LED_State = false;
     char data[BYTES_PER_NODE];
 
-    if ((CAN.packetId() == readDipSwitch()) && (packetSize == BYTES_PER_NODE)) {
+    if (packetSize && (CAN.packetId() == readDipSwitch())) {
 
         #if DEBUG
             Serial.println("Received packet for this node.");
